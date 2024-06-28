@@ -40,7 +40,7 @@ public class FlagFactory {
         case RUSSIA:
             result = Arrays.asList(Color.WHITE, Color.BLUE, Color.RED);
             break;
-         case DUTCH:
+         case UKRAINE:
             result = Arrays.asList(Color.BLUE, Color.YELLOW);
             break;
         case UNCLASSIFIED:

@@ -1,15 +1,37 @@
 package eu.sig.training.ch04;
 
 public class Transfer {
-    CheckingAccount counterAccount;
+    private final Account sourceAccount;
+    private final CheckingAccount destinationAccount;
+    private final Money amount;
 
-    @SuppressWarnings("unused")
-    public Transfer(CheckingAccount acct1, CheckingAccount acct2, Money m) {}
-
-    @SuppressWarnings("unused")
-    public Transfer(SavingsAccount acct1, CheckingAccount acct2, Money m) {}
-
-    public CheckingAccount getCounterAccount() {
-        return this.counterAccount;
+    public Transfer(Account sourceAccount, CheckingAccount destinationAccount, Money amount) {
+        this.sourceAccount = sourceAccount;
+        this.destinationAccount = destinationAccount;
+        this.amount = amount;
     }
+
+    public Account getSourceAccount() {
+        return sourceAccount;
+    }
+
+    public CheckingAccount getDestinationAccount() {
+        return destinationAccount;
+    }
+
+    public Money getAmount() {
+        return amount;
+    }
+}
+
+interface Account {
+    // Common account methods
+}
+
+class CheckingAccount implements Account {
+    // CheckingAccount specific implementations
+}
+
+class SavingsAccount implements Account {
+    // SavingsAccount specific implementations
 }

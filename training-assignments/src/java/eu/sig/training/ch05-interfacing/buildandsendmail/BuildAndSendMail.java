@@ -1,69 +1,50 @@
 package eu.sig.training.ch05.buildandsendmail;
 
-public class EmailService {
-    private final MailMan mailMan;
-
-    public EmailService(MailMan mailMan) {
-        this.mailMan = mailMan;
-    }
-
-    public void sendEmail(EmailDetails details, EmailContent content) {
-        String emailAddress = generateEmailAddress(details);
-        MailMessage formattedMessage = formatMessage(content);
-        mailMan.send(emailAddress, details.getSubject(), formattedMessage);
-    }
-
-    private String generateEmailAddress(EmailDetails details) {
-        return String.format("%c.%s@%.5s.compa.ny",
-            details.getFirstName().charAt(0),
-            details.getLastName().substring(0, Math.min(7, details.getLastName().length())),
-            details.getDivision());
-    }
-
-    private MailMessage formatMessage(EmailContent content) {
-        return new MailMessage(content.getFont(), content.getCombinedMessage());
+public class MailMan {
+    public void send(EmailPackage emailPackage) {
+        // Implementation details...
     }
 }
 
-class EmailDetails {
-    private final String firstName;
-    private final String lastName;
-    private final String division;
+public class EmailPackage {
+    private final String recipientId;
     private final String subject;
+    private final MailMessage message;
 
-    // Constructor, getters...
-}
-
-class EmailContent {
-    private final MailFont font;
-    private final String message1;
-    private final String message2;
-
-    // Constructor, getters...
-
-    public String getCombinedMessage() {
-        return message1 + message2;
-    }
-}
-
-    @SuppressWarnings("unused")
-    private MailMessage formatMessage(MailFont font, String string) {
-        return null;
+    private EmailPackage(Builder builder) {
+        this.recipientId = builder.recipientId;
+        this.subject = builder.subject;
+        this.message = builder.message;
     }
 
-    private class MailMan {
+    // Getters...
 
-        @SuppressWarnings("unused")
-        public void send(String mId, String subject, MailMessage mMessage) {}
+    public static class Builder {
+        private String recipientId;
+        private String subject;
+        private MailMessage message;
 
+        public Builder recipientId(String recipientId) {
+            this.recipientId = recipientId;
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            this.subject = subject;
+            return this;
+        }
+
+        public Builder message(MailMessage message) {
+            this.message = message;
+            return this;
+        }
+
+        public EmailPackage build() {
+            // You can add validation here
+            if (recipientId == null || subject == null || message == null) {
+                throw new IllegalStateException("All fields must be set");
+            }
+            return new EmailPackage(this);
+        }
     }
-
-    private class MailFont {
-
-    }
-
-    private class MailMessage {
-
-    }
-
 }
